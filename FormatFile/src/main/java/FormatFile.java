@@ -1,5 +1,6 @@
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
+
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
@@ -28,11 +29,13 @@ public class FormatFile {
 		int headerSize = 0;
 		List<List<String>> lines = new ArrayList<List<String>>();
 		for (String line; (line = reader.readLine()) != null;) {
-			line =line.trim().replaceAll("\\s{2,}", " "); // Remove double spaces to single place
+			line =line.trim().replaceAll("\\s", " "); // Remove double spaces to single place
 			
 			if (line.length() > 0) {
 				List<String> listOfString = Arrays.asList(line.split(" "));
-				Collections.sort(listOfString);
+				Collections.sort(listOfString,String.CASE_INSENSITIVE_ORDER);
+				
+				System.out.println(listOfString);
 				lines.add(listOfString);
 				if (headerSize < listOfString.size()) {
 					headerSize = listOfString.size();
@@ -95,4 +98,5 @@ public class FormatFile {
 		csvWriter.write("</text>");
 		csvWriter.close();
 	}
+
 }
